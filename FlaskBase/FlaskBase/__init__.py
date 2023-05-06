@@ -18,7 +18,7 @@ app.config.from_object(app_config[config_name])
 db = SQLAlchemy(app)
 #cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-from FlaskBase.routes import base1_route
+from FlaskBase.routes import base1_route,my_work_routes
 
 @app.teardown_request
 def teardown_request(exception):
