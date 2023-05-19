@@ -6,3 +6,4 @@ Flask-Login
 flask_restful
 pandas
 openpyxl
+werkzeug==0.16.1

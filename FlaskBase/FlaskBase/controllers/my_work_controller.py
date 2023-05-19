@@ -3,11 +3,12 @@ from flask_restful import Api, Resource, reqparse
 import json
 import pandas as pd
 from io import BytesIO
-
+import random,werkzeug
 parser = reqparse.RequestParser()
 
 parser.add_argument('json_data',type=str,location="form")
 parser.add_argument('nombre_archivo',type=str,location="form")
+parser.add_argument('data', type=werkzeug.FileStorage, location='files')
 
 class JsonToExcel(Resource):
     def post(self):
