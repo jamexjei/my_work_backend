@@ -1,3 +1,7 @@
 
 *.pyc
 *.pyc
+*.pyc
+*.pyc
+FlaskBase/FlaskBase/__pycache__/__init__.cpython-310.pyc
+*.png

@@ -9,6 +9,7 @@ from werkzeug.datastructures import FileStorage
 from PIL import Image
 import tempfile
 from functools import reduce
+import os
 parser = reqparse.RequestParser()
 
 parser.add_argument('data', type=FileStorage, location='files')
@@ -88,9 +89,16 @@ class PixelImage(Resource):
                     for x in range(obj_ancho_pixel):
                         for y in range(obj_ancho_pixel):
                             imagen_pixelada.putpixel((i, j), promedio_color)
-            with tempfile.NamedTemporaryFile(delete=True,suffix=".png") as temp_file:
-                imagen_pixelada.save(temp_file.name)   
-            return send_file( temp_file.name ,mimetype='image/png',  attachment_filename='imagen_pixelada.png',as_attachment=True)
+            directorio = os.getcwd()                
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".png", dir=directorio) as temp_file:
+                imagen_pixelada.save(temp_file.name)
+                temp_file_path = temp_file.name
+                tempfile_close=temp_file.close()
+                  
+            response = send_file(temp_file_path, mimetype='image/png', attachment_filename='imagen_pixelada.png', as_attachment=True)
+            #os.remove(temp_file_path)
+            
+            return response
         except Exception as e:
             raise ValueError(f"ha ocurrido una excepcion causa:{e} ")
                     
